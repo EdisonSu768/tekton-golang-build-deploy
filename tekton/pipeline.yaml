@@ -4,14 +4,14 @@ metadata:
   name: golang-build-and-push
 spec:
   workspaces:
-    - name: shared-workspace
+    - name: source
   tasks:
     - name: git-clone
       taskRef:
         name: git-clone
       workspaces:
         - name: output
-          workspace: shared-workspace
+          workspace: source
       params:
         - name: url
           value: https://github.com/EdisonSu768/tekton-golang-build-deploy
@@ -26,7 +26,7 @@ spec:
         - git-clone
       workspaces:
         - name: source
-          workspace: shared-workspace
+          workspace: source
       params:
         - name: package
           value: github.com/EdisonSu768/tekton-golang-build-deploy
