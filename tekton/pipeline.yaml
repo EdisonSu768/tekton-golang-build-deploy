@@ -36,11 +36,11 @@ spec:
       runAfter:
         - golang-build
       workspaces:
-      - name: source
-        workspace: source
+        - name: source
+          workspace: source
       params:
-      - name: image
-        value: edisonsu768/golang-http-server
+        - name: image
+          value: edisonsu768/golang-http-server
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
