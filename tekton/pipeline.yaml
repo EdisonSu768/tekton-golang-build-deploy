@@ -40,7 +40,7 @@ spec:
         workspace: source
       params:
       - name: image
-        value: golang-http-server
+        value: edisonsu768/golang-http-server
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
