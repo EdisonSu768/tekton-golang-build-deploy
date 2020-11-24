@@ -30,3 +30,15 @@ spec:
       params:
         - name: package
           value: github.com/EdisonSu768/tekton-golang-build-deploy
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: golang-build-and-push
+spec:
+  pipelineRef:
+    name: golang-build-and-push
+  workspaces:
+    - name: source
+      persistentvolumeclaim:
+        claimName: golang-source-pvc
