@@ -70,4 +70,5 @@ spec:
       persistentvolumeclaim:
         claimName: golang-source-pvc
     - name: sonar-settings
-      emptyDir: {}
+      configmap: 
+        name: sonar-properties
