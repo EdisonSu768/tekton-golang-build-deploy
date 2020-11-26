@@ -28,6 +28,8 @@ spec:
       workspaces:
        - name: source-dir
          workspace: source
+       - name: sonar-settings
+         workspace: sonar-settings
       params:
        - name: SONAR_HOST_URL
          value: http://172.17.0.2:9000
