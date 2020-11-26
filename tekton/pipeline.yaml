@@ -41,11 +41,13 @@ spec:
       params:
         - name: image
           value: edisonsu768/golang-http-server
+        - name: insecure_registry
+          value: ""
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: golang-build-and-push
+  name: golang-build-and-push-run
 spec:
   pipelineRef:
     name: golang-build-and-push
