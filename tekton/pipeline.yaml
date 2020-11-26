@@ -43,6 +43,22 @@ spec:
           value: edisonsu768/golang-http-server
         - name: insecure_registry
           value: 127.0.0.1
+    - name: knctl-deploy
+      taskRef:
+        name: knctl-deploy
+      runAfter:
+        - docker-build
+      params:
+        - name: service
+          value: my-service
+      resources:
+        inputs:
+        - name: image
+          resourceSpec:
+            type: image
+            params:
+            - name: url
+              value: edisonsu768/golang-http-server
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
