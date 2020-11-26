@@ -49,6 +49,7 @@ kind: PipelineRun
 metadata:
   name: golang-build-and-push-run
 spec:
+  serviceAccountName: build-bot
   pipelineRef:
     name: golang-build-and-push
   workspaces:
