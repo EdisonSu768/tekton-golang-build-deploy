@@ -37,7 +37,7 @@ spec:
       taskRef:
         name: golang-build
       runAfter:
-        - git-clone
+        - code-analysis
       workspaces:
         - name: source
           workspace: source
