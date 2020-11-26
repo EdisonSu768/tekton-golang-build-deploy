@@ -1,11 +1,7 @@
-FROM golang:1.15.5
+FROM apline
 
-ENV APP_NAME http-server
-ENV PORT 9898
+COPY http-server /tmp
 
-COPY ./http-server /go/src/${APP_NAME}
-WORKDIR /go/src/${APP_NAME}
+CMD /tmp/http-server
 
-CMD ./${APP_NAME}
-
-EXPOSE ${PORT}
+EXPOSE 9898
