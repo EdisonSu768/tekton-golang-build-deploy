@@ -51,14 +51,6 @@ spec:
       params:
         - name: service
           value: my-service
-      resources:
-        inputs:
-        - name: image
-          resourceSpec:
-            type: image
-            params:
-            - name: url
-              value: edisonsu768/golang-http-server
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
