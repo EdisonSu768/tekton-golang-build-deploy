@@ -3,13 +3,6 @@ kind: Pipeline
 metadata:
   name: golang-build-and-push
 spec:
-  workspaces:
-    - name: sonar-settings
-      configmap: 
-        name: sonar-settings
-    - name: source
-      persistentVolumeClaim: 
-        claimName: golang-source-pvc
   tasks:
     - name: git-clone
       taskRef:
