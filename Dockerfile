@@ -1,6 +1,6 @@
 FROM alpine
 
-COPY http-server /tmp
+COPY github.com/EdisonSu768/tekton-golang-build-deploy/cmd/http-server /tmp
 
 CMD /tmp/http-server
 
