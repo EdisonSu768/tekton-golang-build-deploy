@@ -47,7 +47,7 @@ spec:
         - name: package
           value: github.com/EdisonSu768/tekton-golang-build-deploy
         - name: flags
-          value: -v -o $(workspaces.shared-workspace.path)
+          value: -v -o $(workspaces.source.path)
     - name: docker-build
       taskRef:
         name: docker-build
