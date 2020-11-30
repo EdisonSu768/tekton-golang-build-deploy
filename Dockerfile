@@ -1,4 +1,4 @@
-FROM alpine
+FROM ubuntu:latest
 
 COPY http-server /tmp
 
