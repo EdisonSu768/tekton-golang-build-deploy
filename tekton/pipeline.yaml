@@ -60,7 +60,7 @@ spec:
         - name: insecure_registry
           value: 127.0.0.1
         - name: context
-          value: $(workspaces.shared-workspace.path)
+          value: $(workspaces.source.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
