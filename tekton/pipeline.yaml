@@ -45,7 +45,7 @@ spec:
           workspace: shared-workspace
       params:
         - name: package
-          value: github.com/EdisonSu768/tekton-golang-build-deploy
+          value: $(workspaces.source.path)
     - name: docker-build
       taskRef:
         name: docker-build
