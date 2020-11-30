@@ -59,6 +59,10 @@ spec:
           value: edisonsu768/golang-http-server
         - name: insecure_registry
           value: 127.0.0.1
+      script: |
+        ls
+        pwd
+        sleep 3000
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
