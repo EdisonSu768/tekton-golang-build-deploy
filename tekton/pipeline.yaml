@@ -66,7 +66,7 @@ spec:
         - name: action
           value: create
         - name: success-condition
-          value: status.phase == Running
+          value: status.phase == Ready
         - name: failure-condition
           value: status.phase in (Failed, Error)
         - name: output
