@@ -16,10 +16,6 @@ spec:
       params:
         - name: url
           value: https://github.com/EdisonSu768/tekton-golang-build-deploy
-        - name: subdirectory
-          value: ""
-        - name: deleteExisting
-          value: "true"
     - name: code-analysis
       taskRef:
        name: sonarqube-scanner
