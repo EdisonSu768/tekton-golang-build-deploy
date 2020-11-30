@@ -5,14 +5,14 @@ metadata:
 spec:
   workspaces:
     - name: sonar-settings
-    - name: source
+    - name: shared-workspace
   tasks:
     - name: git-clone
       taskRef:
         name: git-clone
       workspaces:
         - name: output
-          workspace: source
+          workspace: shared-workspace
       params:
         - name: url
           value: https://github.com/EdisonSu768/tekton-golang-build-deploy
@@ -27,7 +27,7 @@ spec:
         - git-clone
       workspaces:
        - name: source-dir
-         workspace: source
+         workspace: shared-workspace
        - name: sonar-settings
          workspace: sonar-settings
       params:
@@ -42,7 +42,7 @@ spec:
         - code-analysis
       workspaces:
         - name: source
-          workspace: source
+          workspace: shared-workspace
       params:
         - name: package
           value: github.com/EdisonSu768/tekton-golang-build-deploy
@@ -53,7 +53,7 @@ spec:
         - golang-build
       workspaces:
         - name: source
-          workspace: source
+          workspace: shared-workspace
       params:
         - name: image
           value: edisonsu768/golang-http-server
@@ -69,7 +69,7 @@ spec:
   pipelineRef:
     name: golang-build-and-push
   workspaces:
-    - name: source
+    - name: shared-workspace
       persistentvolumeclaim:
         claimName: golang-source-pvc
     - name: sonar-settings
