@@ -69,6 +69,12 @@ spec:
           value: status.readyReplicas == 1
         - name: failure-condition
           value: status.readyReplicas == 0
+        - name: output
+          value: |
+            - name: job-name
+              valueFrom: '{.metadata.name}'
+            - name: job-namespace
+              valueFrom: '{.metadata.namespace}'
         - name: set-ownerreference
           value: "true"
         - name: manifest
