@@ -57,6 +57,61 @@ spec:
           value: edisonsu768/golang-http-server
         - name: insecure_registry
           value: 127.0.0.1
+    - name: kubectl-deploy-pod
+      taskRef:
+        name: kubectl-deploy-pod
+      runAfter:
+        - docker-build
+      params:
+        - name: action
+          value: create
+        - name: success-condition
+          value: status.phase == Running
+        - name: failure-condition
+          value: status.phase in (Failed, Error)
+        - name: set-ownerreference
+          value: "true"
+        - name: manifest
+          value: |
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: golang-http-server-deployment
+              labels:
+                app: golang-http-server
+            spec:
+              replicas: 1
+              selector:
+                matchLabels:
+                  app: golang-http-server
+              template:
+                metadata:
+                  labels:
+                    app: golang-http-server
+                spec:
+                  containers:
+                    - name: golang-http-server
+                      image: edisonsu768/golang-http-server:latest
+                      imagePullPolicy: Always
+                      ports:
+                        - containerPort: 9898
+                          protocol: TCP
+            ---
+              apiVersion: v1
+              kind: Service
+              metadata:
+                labels:
+                  app: golang-http-server
+                name: golang-http-server-service
+              spec:
+                type: NodePort
+                ports:
+                  - name: http
+                    port: 9898
+                    targetPort: 9898
+                    protocol: TCP
+                selector:
+                  app: golang-http-server
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
