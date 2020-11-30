@@ -59,6 +59,8 @@ spec:
           value: edisonsu768/golang-http-server
         - name: insecure_registry
           value: 127.0.0.1
+        - name: context
+          value: $(workspaces.shared-workspace.path)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun

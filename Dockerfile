@@ -1,6 +1,6 @@
 FROM alpine
 
-COPY /workspace/source/http-server /tmp
+COPY http-server /tmp
 
 CMD /tmp/http-server
 
