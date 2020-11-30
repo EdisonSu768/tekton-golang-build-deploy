@@ -66,9 +66,9 @@ spec:
         - name: action
           value: create
         - name: success-condition
-          value: status.phase == Ready
+          value: status.readyReplicas == 1
         - name: failure-condition
-          value: status.phase in (Failed, Error)
+          value: status.readyReplicas == 0
         - name: output
           value: |
             - name: job-name
