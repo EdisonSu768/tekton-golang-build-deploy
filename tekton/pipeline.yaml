@@ -16,11 +16,24 @@ spec:
       params:
         - name: url
           value: https://github.com/EdisonSu768/tekton-golang-build-deploy
+    - name: golang-build
+      taskRef:
+        name: golang-build
+      runAfter:
+        - git-clone
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+      params:
+        - name: package
+          value: github.com/EdisonSu768/tekton-golang-build-deploy
+        - name: flags
+          value: -v -o $(workspaces.source.path)
     - name: code-analysis
       taskRef:
        name: sonarqube-scanner
       runAfter:
-        - git-clone
+        - golang-build
       workspaces:
        - name: source-dir
          workspace: shared-workspace
@@ -31,24 +44,11 @@ spec:
          value: http://172.17.0.2:9000
        - name: SONAR_PROJECT_KEY
          value: com.github.edisonsu768.golang-http-server
-    - name: golang-build
-      taskRef:
-        name: golang-build
-      runAfter:
-        - code-analysis
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-      params:
-        - name: package
-          value: github.com/EdisonSu768/tekton-golang-build-deploy
-        - name: flags
-          value: -v -o $(workspaces.source.path)
     - name: docker-build
       taskRef:
         name: docker-build
       runAfter:
-        - golang-build
+        - code-analysis
       workspaces:
         - name: source
           workspace: shared-workspace
