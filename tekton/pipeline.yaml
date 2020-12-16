@@ -29,79 +29,79 @@ spec:
           value: github.com/EdisonSu768/tekton-golang-build-deploy
         - name: flags
           value: -v -o $(workspaces.source.path)
-    - name: code-analysis
-      taskRef:
-       name: sonarqube-scanner
-      runAfter:
-        - golang-build
-      workspaces:
-       - name: source-dir
-         workspace: shared-workspace
-       - name: sonar-settings
-         workspace: sonar-settings
-      params:
-       - name: SONAR_HOST_URL
-         value: http://172.17.0.2:9000
-       - name: SONAR_PROJECT_KEY
-         value: com.github.edisonsu768.golang-http-server
-    - name: docker-build
-      taskRef:
-        name: docker-build
-      runAfter:
-        - code-analysis
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-      params:
-        - name: image
-          value: edisonsu768/golang-http-server
-        - name: insecure_registry
-          value: 127.0.0.1
-    - name: kubectl-deploy-pod
-      taskRef:
-        name: kubectl-deploy-pod
-      runAfter:
-        - docker-build
-      params:
-        - name: action
-          value: create
-        - name: success-condition
-          value: status.readyReplicas == 1
-        - name: failure-condition
-          value: status.readyReplicas == 0
-        - name: output
-          value: |
-            - name: job-name
-              valueFrom: '{.metadata.name}'
-            - name: job-namespace
-              valueFrom: '{.metadata.namespace}'
-        - name: set-ownerreference
-          value: "true"
-        - name: manifest
-          value: |
-            apiVersion: apps/v1
-            kind: Deployment
-            metadata:
-              name: golang-http-server-deployment
-              labels:
-                app: golang-http-server
-            spec:
-              replicas: 1
-              selector:
-                matchLabels:
-                  app: golang-http-server
-              template:
-                metadata:
-                  labels:
-                    app: golang-http-server
-                spec:
-                  containers:
-                    - name: golang-http-server
-                      image: edisonsu768/golang-http-server:latest
-                      imagePullPolicy: Always
-                      ports:
-                        - containerPort: 9898
-                          protocol: TCP
+    # - name: code-analysis
+    #   taskRef:
+    #    name: sonarqube-scanner
+    #   runAfter:
+    #     - golang-build
+    #   workspaces:
+    #    - name: source-dir
+    #      workspace: shared-workspace
+    #    - name: sonar-settings
+    #      workspace: sonar-settings
+    #   params:
+    #    - name: SONAR_HOST_URL
+    #      value: http://172.17.0.2:9000
+    #    - name: SONAR_PROJECT_KEY
+    #      value: com.github.edisonsu768.golang-http-server
+    # - name: docker-build
+    #   taskRef:
+    #     name: docker-build
+    #   runAfter:
+    #     - code-analysis
+    #   workspaces:
+    #     - name: source
+    #       workspace: shared-workspace
+    #   params:
+    #     - name: image
+    #       value: edisonsu768/golang-http-server
+    #     - name: insecure_registry
+    #       value: 127.0.0.1
+    # - name: kubectl-deploy-pod
+    #   taskRef:
+    #     name: kubectl-deploy-pod
+    #   runAfter:
+    #     - docker-build
+    #   params:
+    #     - name: action
+    #       value: create
+    #     - name: success-condition
+    #       value: status.readyReplicas == 1
+    #     - name: failure-condition
+    #       value: status.readyReplicas == 0
+    #     - name: output
+    #       value: |
+    #         - name: job-name
+    #           valueFrom: '{.metadata.name}'
+    #         - name: job-namespace
+    #           valueFrom: '{.metadata.namespace}'
+    #     - name: set-ownerreference
+    #       value: "true"
+    #     - name: manifest
+    #       value: |
+    #         apiVersion: apps/v1
+    #         kind: Deployment
+    #         metadata:
+    #           name: golang-http-server-deployment
+    #           labels:
+    #             app: golang-http-server
+    #         spec:
+    #           replicas: 1
+    #           selector:
+    #             matchLabels:
+    #               app: golang-http-server
+    #           template:
+    #             metadata:
+    #               labels:
+    #                 app: golang-http-server
+    #             spec:
+    #               containers:
+    #                 - name: golang-http-server
+    #                   image: edisonsu768/golang-http-server:latest
+    #                   imagePullPolicy: Always
+    #                   ports:
+    #                     - containerPort: 9898
+    #                       protocol: TCP
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
