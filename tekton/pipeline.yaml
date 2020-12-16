@@ -19,14 +19,12 @@ spec:
     - name: golang-build
       taskRef:
         name: golang-build
-      runAfter:
-        - git-clone
       workspaces:
         - name: source
           workspace: shared-workspace
       params:
         - name: package
-          value: github.com/EdisonSu768/tekton-golang-build-deploy
+          value: $(tasks.git-clone.results.url)
         - name: flags
           value: -v -o $(workspaces.source.path)
     # - name: code-analysis
