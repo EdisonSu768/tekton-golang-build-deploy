@@ -8,4 +8,6 @@ kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/master/task/
 
 kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/master/task/git-clone/0.2/git-clone.yaml
 
+kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/master/task/kubectl-deploy-pod/0.1/kubectl-deploy-pod.yaml
+
 # kubectl create configmap sonar-properties --from-file="sonar-project.properties"
